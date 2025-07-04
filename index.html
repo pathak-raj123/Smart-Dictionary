@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Dictionary+</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dark">
+  <div class="container" role="main">
+    <header>
+      <h1 tabindex="0">📖 Smart Dictionary+</h1>
+      <div class="theme-controls">
+        <button id="toggleLogin" onclick="toggleLoginBox()">🔐 Login</button>
+        <button onclick="toggleAssistant()">🧠 Assistant</button>
+        <button onclick="openFlashcards()">🎓 Flashcards</button>
+      </div>
+    </header>
+
+    <div class="login-box" id="loginBox">
+      <input id="usernameInput" placeholder="Enter username..." />
+      <button onclick="loginUser()">Login</button>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="wordInput" placeholder="Enter a word or concept..." onkeypress="handleKeyPress(event)" aria-label="Word input" />
+      <button onclick="searchWord()">🔍</button>
+      <button id="clearBtn" onclick="clearSearch()">❌</button>
+      <button id="micBtn" onclick="startVoiceInput()" aria-label="Voice Search">🎤</button>
+    </div>
+
+    <div id="loading" class="loading">Searching...</div>
+    <div id="result" class="result-box" aria-live="polite"></div>
+
+    <div class="history">
+      <h3>Recent Searches 🔁</h3>
+      <ul id="historyList"></ul>
+    </div>
+
+    <div class="notes-section">
+      <h3>Your Note 🗒️</h3>
+      <textarea id="wordNote" placeholder="Write your note here..."></textarea>
+      <button onclick="saveNote()">Save Note</button>
+    </div>
+
+    <div id="toast" class="toast" role="alert"></div>
+
+    <div id="assistantBox" class="assistant-box hidden">
+      <h3>Ask Assistant</h3>
+      <textarea id="assistantInput" placeholder="Ask something..." rows="2"></textarea>
+      <button onclick="askAssistant()">Ask</button>
+      <div id="assistantResponse"></div>
+    </div>
+
+    <div id="flashcardBox" class="flashcard-box hidden">
+      <div id="flashcard"></div>
+      <button onclick="nextFlashcard()">Next</button>
+      <button onclick="closeFlashcards()">Close</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="assistant.js"></script>
+    <script src="flashcards.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js');
+      }
+    </script>
+  </div>
+</body>
+</html>
